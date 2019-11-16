@@ -2,18 +2,33 @@
 	'use strict';
 
 	angular.module('RestaurantMenuApp',[])
-	.controller('RestaurantMenuAppController',RestaurantMenuAppController)
-	.service('MenuCategoriesService',MenuCategoriesService);
+	.controller('NarrowItDownController',NarrowItDownController)
+	.service('MenuSearchService',MenuSearchService)
+	.directive('foundItems',foundItemsDirective);
 
-	RestaurantMenuAppController.$inject=['MenuCategoriesService'];
-	function RestaurantMenuAppController(MenuCategoriesService){
+	function foundItemsDirective() {
+	  var ddo = {
+	    templateUrl: 'foundItems.html',
+			scope: {
+				items: '<',
+				onRemove: '&'
+			},
+			controller:'NarrowItDownController',
+			controllerAs: 'list',
+			bindToController: true
+	  };
+	  return ddo;
+	}
+
+	NarrowItDownController.$inject=['MenuSearchService'];
+	function NarrowItDownController(MenuSearchService){
 		var restuarantMenu = this;
 		restuarantMenu.searchValue=""
 		restuarantMenu.foundList=[];
-		// var promise = '';			
+		// var promise = '';
 		restuarantMenu.getMenuDetails=function(){
 			console.log("In getMenuDetails",restuarantMenu.searchValue);
-			var promise = MenuCategoriesService.getDetails();
+			var promise = MenuSearchService.getMatchedMenuItems();
 				promise.then(function(response){
 					if ( restuarantMenu.searchValue != ""){
 						restuarantMenu.Categories = response.data;
@@ -21,7 +36,7 @@
 							if (restuarantMenu.Categories.menu_items[i].description.search(restuarantMenu.searchValue) != -1) {
 								console.log("RestaurantMenuApp Categories",restuarantMenu.Categories.menu_items[i]);
 								restuarantMenu.foundList.push({"name": restuarantMenu.Categories.menu_items[i].name,
-								 								"short_name" : restuarantMenu.Categories.menu_items[i].short_name, 
+								 								"short_name" : restuarantMenu.Categories.menu_items[i].short_name,
 								 								"description":restuarantMenu.Categories.menu_items[i].description});
 							}
 								// restuarantMenu.Categories.menu_items[i]
@@ -38,10 +53,10 @@
 			restuarantMenu.foundList.splice(index,1);
 		};
 	}
-	MenuCategoriesService.$inject=['$http'];
-	function MenuCategoriesService($http){
+	MenuSearchService.$inject=['$http'];
+	function MenuSearchService($http){
 		var service= this;
-		service.getDetails=function(){
+		service.getMatchedMenuItems=function(){
 			var response=$http({
 				method: 'GET',
 				url: ('http://davids-restaurant.herokuapp.com/menu_items.json')
