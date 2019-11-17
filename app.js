@@ -11,7 +11,8 @@
 	    templateUrl: 'foundItems.html',
 			scope: {
 				foundItem: '<',
-				onRemove: '&'
+				onRemove: '&',
+				onError: '<'
 			},
 			controller: NarrowItDownController,
 			controllerAs: 'restuarantMenu',
@@ -25,13 +26,14 @@
 		var restuarantMenu = this;
 		restuarantMenu.searchValue=""
 		restuarantMenu.foundList=[];
+		restuarantMenu.errorMsg = '';
 		// var promise = '';
 		restuarantMenu.getMenuDetails=function(){
-			console.log("In getMenuDetails",restuarantMenu.searchValue);
 			var promise = MenuSearchService.getMatchedMenuItems();
 				promise.then(function(response){
 					if ( restuarantMenu.searchValue != ""){
 						restuarantMenu.Categories = response.data;
+						restuarantMenu.foundList=[];
 						for (var i = 0; i<restuarantMenu.Categories.menu_items.length ; i++) {
 							if (restuarantMenu.Categories.menu_items[i].description.search(restuarantMenu.searchValue) != -1) {
 								console.log("RestaurantMenuApp Categories",restuarantMenu.Categories.menu_items[i]);
@@ -40,6 +42,11 @@
 								 								"description":restuarantMenu.Categories.menu_items[i].description});
 							}
 								// restuarantMenu.Categories.menu_items[i]
+						}
+						if(restuarantMenu.foundList.length>0){
+							restuarantMenu.errorMsg = '';
+						}else {
+							restuarantMenu.errorMsg = 'Nothing found';
 						}
 					}
 					// console.log("RestaurantMenuApp Categories",restuarantMenu.Categories.menu_items);

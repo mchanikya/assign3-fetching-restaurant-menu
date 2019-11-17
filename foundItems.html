@@ -3,14 +3,19 @@
 	<button> Don't want this one!</button>
 </div> -->
 <div class="">
+
+<div class="row" wfd-id='2'>
 	<br>
-	<ol>
-			<li  ng-repeat="item in restuarantMenu.foundItem">
-				{{item.name}},{{item.short_name}},{{item.description}}
-				<button ng-click="restuarantMenu.onRemove({index: $index})"> Don't want this one!</button>
+	<ul>
+			<li class='jumbotron' style='width:50%;'  ng-repeat="item in restuarantMenu.foundItem">
+				<h2 class="ng-binding">{{item.name}}</h2>
+				<h3 class="ng-binding">{{item.short_name}}</h3>
+				<p class="ng-binding">{{item.description}}</p>
+				<button class="btn btn-lg btn-primary" ng-click="restuarantMenu.onRemove({index: $index})"> Don't want this one!</button>
 			</li>
-	</ol>
-	<div class='error' ng-if='!restuarantMenu.foundItem.length'>Nothing found</div>
+	</ul>
+	<h2 style='color: red;font-weight:bold; font-style:italic;'>{{restuarantMenu.onError}}</h2>
+</div>
 </div>
 
 <!-- <h1>In found {{restuarantMenu.items}}</h1> -->
