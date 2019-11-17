@@ -19,13 +19,6 @@
         <button class="btn btn-primary" ng-click='menu.getMenuDetails()'>Narrow It Down For Me!</button>
       </div>
     </div>
-      <!-- found-items should be implemented as a component -->
-      <!-- <br><div ng-repeat="items in menu.foundList">
-        {{items.name}},{{items.short_name}},{{items.description}}
-        <button ng-click="menu.removeItemFromList($index)"> Don't want this one!</button><br>
-        <div class='error' ng-if='!menu.searchValue'>Nothing found</div>
-      </div> -->
-      <!-- <found-items found-items="...." on-remove="...."></found-items> -->
       <found-items
       found-item="menu.foundList"
       on-remove="menu.removeItemFromList(index)"
