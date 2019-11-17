@@ -31,12 +31,11 @@
 		restuarantMenu.getMenuDetails=function(){
 			var promise = MenuSearchService.getMatchedMenuItems();
 				promise.then(function(response){
+					restuarantMenu.foundList=[];
 					if ( restuarantMenu.searchValue != ""){
 						restuarantMenu.Categories = response.data;
-						restuarantMenu.foundList=[];
 						for (var i = 0; i<restuarantMenu.Categories.menu_items.length ; i++) {
 							if (restuarantMenu.Categories.menu_items[i].description.search(restuarantMenu.searchValue) != -1) {
-								console.log("RestaurantMenuApp Categories",restuarantMenu.Categories.menu_items[i]);
 								restuarantMenu.foundList.push({"name": restuarantMenu.Categories.menu_items[i].name,
 								 								"short_name" : restuarantMenu.Categories.menu_items[i].short_name,
 								 								"description":restuarantMenu.Categories.menu_items[i].description});
@@ -48,6 +47,9 @@
 						}else {
 							restuarantMenu.errorMsg = 'Nothing found';
 						}
+					}else {
+						restuarantMenu.searchValue;
+						restuarantMenu.errorMsg = 'Nothing found';
 					}
 					// console.log("RestaurantMenuApp Categories",restuarantMenu.Categories.menu_items);
 				}).catch(function(error){
