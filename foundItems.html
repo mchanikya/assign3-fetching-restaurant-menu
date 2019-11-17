@@ -14,7 +14,7 @@
 				<button class="btn btn-lg btn-primary" ng-click="restuarantMenu.onRemove({index: $index})"> Don't want this one!</button>
 			</li>
 	</ul>
-	<h2 style='color: red;font-weight:bold; font-style:italic;'>{{restuarantMenu.onError}}</h2>
+	<h2 ng-if='restuarantMenu.onError' class="alert alert-danger" style='color: red;font-weight:bold; font-style:italic;'>{{restuarantMenu.onError}}</h2>
 </div>
 </div>
 
