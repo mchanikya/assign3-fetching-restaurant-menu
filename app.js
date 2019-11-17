@@ -10,11 +10,11 @@
 	  var ddo = {
 	    templateUrl: 'foundItems.html',
 			scope: {
-				items: '<',
+				foundItem: '<',
 				onRemove: '&'
 			},
-			controller:'NarrowItDownController',
-			controllerAs: 'list',
+			controller: NarrowItDownController,
+			controllerAs: 'restuarantMenu',
 			bindToController: true
 	  };
 	  return ddo;

@@ -2,11 +2,15 @@
 	{{items.name}},{{items.short_name}},{{items.description}}
 	<button> Don't want this one!</button>
 </div> -->
-<ol>
-		<li ng-repeat="item in list.items">
-			{{item.name}},{{item.short_name}},{{item.description}}
-			<button ng-click="list.removeItemFromList(index: $index)"> Don't want this one!</button>
-		</li>
-</ol>
+<div class="">
+	<br>
+	<ol>
+			<li  ng-repeat="item in restuarantMenu.foundItem">
+				{{item.name}},{{item.short_name}},{{item.description}}
+				<button ng-click="restuarantMenu.onRemove({index: $index})"> Don't want this one!</button>
+			</li>
+	</ol>
+	<div class='error' ng-if='!restuarantMenu.foundItem.length'>Nothing found</div>
+</div>
 
-<h1>In found {{foundItems}}</h1>
+<!-- <h1>In found {{restuarantMenu.items}}</h1> -->
