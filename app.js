@@ -35,7 +35,7 @@
 					if ( restuarantMenu.searchValue != ""){
 						restuarantMenu.Categories = response.data;
 						for (var i = 0; i<restuarantMenu.Categories.menu_items.length ; i++) {
-							if (restuarantMenu.Categories.menu_items[i].description.search(restuarantMenu.searchValue) != -1) {
+							if (restuarantMenu.Categories.menu_items[i].description.search(restuarantMenu.searchValue.toLowerCase()) != -1) {
 								restuarantMenu.foundList.push({"name": restuarantMenu.Categories.menu_items[i].name,
 								 								"short_name" : restuarantMenu.Categories.menu_items[i].short_name,
 								 								"description":restuarantMenu.Categories.menu_items[i].description});
